@@ -137,7 +137,7 @@ export default {
           [41.33, 69.32]
         ], {
           //Properties
-          hintContent: 'You can\'t drag me!',
+          hintContent: 'Harakatlanmaydi!',
           balloonContent: 'Kvadrat'
         }, {
           fillColor: '#7df9ff33',
@@ -161,7 +161,7 @@ export default {
             ]
           },
           properties: {
-            hintContent: 'Drag me!',
+            hintContent: 'Harakatlanadi',
             balloonContent: 'Harakatlanikidan kvadrat'
           }
         }, {
