@@ -90,7 +90,7 @@ export default {
           iconPieChartCaptionMaxWidth: 200
         });
 
-        const Placemark = new this.maps.Placemark([41.31, 69.3], {
+        const Placemark = new this.maps.Placemark([41.311, 69.304], {
           hintContent: 'A custom placemark icon',
           balloonContent: 'This is a pretty placemark'
         }, {
@@ -108,8 +108,14 @@ export default {
             // The "Polyline" geometry type.
             type: "LineString",
             coordinates: [
-              [41.3, 69.3],
-              [41.313, 69.32]
+              // [55.80, 37.50],
+              // [55.80, 37.40],
+              // [55.70, 37.50],
+              // [55.70, 37.40],
+              [41.31, 69.3],
+              [41.31, 69.29],
+              [41.29, 69.3],
+              [41.29, 69.29]
             ]
           },
           properties:{
@@ -121,9 +127,51 @@ export default {
         }, {
           draggable: true,
           // The line color.
-          strokeColor: "#FFFF00",
+          strokeColor: "#000000",
           // Line width.
           strokeWidth: 5
+        });
+
+        const myGeoSquare = new this.maps.Rectangle([
+          [41.32, 69.31],
+          [41.33, 69.32]
+        ], {
+          //Properties
+          hintContent: 'You can\'t drag me!',
+          balloonContent: 'Kvadrat'
+        }, {
+          fillColor: '#7df9ff33',
+          fillOpacity: 0.5,
+          // Stroke color.
+          strokeColor: '#0000FF',
+          // Stroke transparency.
+          strokeOpacity: 0.5,
+          // Line width.
+          strokeWidth: 2,
+          borderRadius: 6
+        });
+
+        const myGeoSquareMove = new this.maps.GeoObject({
+          // Move
+          geometry: {
+            type: 'Rectangle',
+            coordinates: [
+              [41.332, 69.31],
+              [41.34, 69.32]
+            ]
+          },
+          properties: {
+            hintContent: 'Drag me!',
+            balloonContent: 'Harakatlanikidan kvadrat'
+          }
+        }, {
+          draggable: true,
+          // The fill color and transparency.
+          fillColor: '#ffff0022',
+          // The color and transparency of borders.
+          strokeColor: '#3caa3c88',
+          // Line width.
+          strokeWidth: 7
         });
 
         this.map.geoObjects.add(myPlacemark);
@@ -140,6 +188,12 @@ export default {
 
         this.map.geoObjects.add(myGeoPolyline);
         // https://yandex.com/dev/maps/jsbox/2.1/polyline
+
+        this.map.geoObjects.add(myGeoSquare);
+        // https://yandex.com/dev/maps/jsbox/2.1/rectangle
+
+        this.map.geoObjects.add(myGeoSquareMove);
+        // https://yandex.com/dev/maps/jsbox/2.1/rectangle
 
       })
           .catch(error => console.log('Failed to load Yandex Maps', error));
