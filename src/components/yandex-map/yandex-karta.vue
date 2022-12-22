@@ -29,7 +29,7 @@ export default {
   methods: {
     initMap() {
       ymaps.load(defaultMap.api).then(maps => {
-        console.log("MAPS: ", maps);
+        // console.log("MAPS: ", maps);
         this.maps = maps;
         this.map = new maps.Map('map', {
           center: defaultMap.home,
