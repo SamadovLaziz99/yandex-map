@@ -31,13 +31,14 @@ export default {
       ymaps.load(defaultMap.api).then(maps => {
         // console.log("MAPS: ", maps);
         this.maps = maps;
-        this.map = new maps.Map('map', {
+        const myMap = new maps.Map('map', {
           center: defaultMap.home,
           zoom: 13,
           controls: ['zoomControl', 'fullscreenControl']
         }, {
           searchControlProvider: 'yandex#search'
         });
+        this.map = myMap;
 
         const myPlacemark = new this.maps.Placemark([41.312947, 69.280204], {
           // In order for the balloon and hint to open on the placemark, you need to set certain properties.
@@ -221,6 +222,26 @@ export default {
           strokeWidth: 5
         });
 
+        const myPolyline = new this.maps.Polyline([
+          [41.30, 69.26],
+          [41.30, 69.25],
+          [41.28, 69.26],
+          [41.28, 69.25]
+        ], {}, {
+          strokeColor: "#00000088",
+          strokeWidth: 4,
+          editorMaxPoints: 6,
+          editorMenuManager: function (items) {
+            items.push({
+              title: "Delete line",
+              onClick: function () {
+                myMap.geoObjects.remove(myPolyline);
+              }
+            });
+            return items;
+          }
+        });
+
         this.map.geoObjects.add(myPlacemark);
         // https://yandex.com/dev/maps/jsbox/2.1/balloon_and_hint
 
@@ -247,6 +268,10 @@ export default {
 
         this.map.geoObjects.add(myCircle);
         // https://yandex.com/dev/maps/jsbox/2.1/circle
+
+        this.map.geoObjects.add(myPolyline);
+        myPolyline.editor.startEditing();
+        // https://yandex.com/dev/maps/jsbox/2.1/polylineEditor
 
       })
           .catch(error => console.log('Failed to load Yandex Maps', error));
