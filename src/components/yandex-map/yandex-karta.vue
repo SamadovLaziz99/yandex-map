@@ -174,6 +174,53 @@ export default {
           strokeWidth: 7
         });
 
+        const myGeoObjects = new this.maps.GeoObject({
+          geometry: {
+            // The "Polygon" geometry type.
+            type: "Polygon",
+            coordinates: [
+              [
+                [41.20, 69.25],
+                [41.22, 69.29],
+                [41.20, 69.33],
+                [41.18, 69.33],
+                [41.18, 69.25]
+              ],
+              [
+                [41.20, 69.27],
+                [41.20, 69.32],
+                [41.16, 69.27]
+              ],
+            ],
+            fillRule: "nonZero"
+          },
+          properties:{
+            balloonContent: "Polygon"
+          }
+        }, {
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash'
+        });
+
+        const myCircle = new this.maps.Circle([
+          // The coordinates of the center of the circle.
+          [41.33, 69.28],
+          // The radius of the circle in meters.
+          500
+        ], {
+          balloonContent: "Radius of the circle: 500 m",
+          hintContent: "Harakatlanadi!"
+        }, {
+          draggable: true,
+          fillColor: "#DB709377",
+          strokeColor: "#990066",
+          strokeOpacity: 0.8,
+          strokeWidth: 5
+        });
+
         this.map.geoObjects.add(myPlacemark);
         // https://yandex.com/dev/maps/jsbox/2.1/balloon_and_hint
 
@@ -194,6 +241,12 @@ export default {
 
         this.map.geoObjects.add(myGeoSquareMove);
         // https://yandex.com/dev/maps/jsbox/2.1/rectangle
+
+        this.map.geoObjects.add(myGeoObjects);
+        // https://yandex.com/dev/maps/jsbox/2.1/polygon
+
+        this.map.geoObjects.add(myCircle);
+        // https://yandex.com/dev/maps/jsbox/2.1/circle
 
       })
           .catch(error => console.log('Failed to load Yandex Maps', error));
