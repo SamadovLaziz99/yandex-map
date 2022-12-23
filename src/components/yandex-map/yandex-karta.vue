@@ -242,6 +242,19 @@ export default {
           }
         });
 
+        const myPolygon = new this.maps.Polygon([], {}, {
+          editorDrawingCursor: "crosshair",
+          // 4 ta nuqta qo'ysak birlashtirib polygon yasab beradi;
+          editorMaxPoints: 5,
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          strokeWidth: 5
+        });
+        myMap.geoObjects.add(myPolygon);
+
+
+
+
         this.map.geoObjects.add(myPlacemark);
         // https://yandex.com/dev/maps/jsbox/2.1/balloon_and_hint
 
@@ -272,6 +285,13 @@ export default {
         this.map.geoObjects.add(myPolyline);
         myPolyline.editor.startEditing();
         // https://yandex.com/dev/maps/jsbox/2.1/polylineEditor
+
+        const stateMonitor = new this.maps.Monitor(myPolygon.editor.state);
+        stateMonitor.add("drawing", function (newValue) {
+          myPolygon.options.set("strokeColor", newValue ? '#FF0000' : '#0000FF');
+        });
+        myPolygon.editor.startDrawing();
+        // https://yandex.com/dev/maps/jsbox/2.1/polygonEditor
 
       })
           .catch(error => console.log('Failed to load Yandex Maps', error));
